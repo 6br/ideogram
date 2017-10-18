@@ -125,7 +125,7 @@ function configure(config) {
 
   if (!this.config.brush) {
     this.config.brush = false;
-  }
+  } 
 
   if (!this.config.rows) {
     this.config.rows = 1;
@@ -590,8 +590,8 @@ function init() {
         ideo.drawChromosomeLabels(ideo.chromosomes);
       }
 
-      if (ideo.config.brush === true) {
-        ideo.createBrush();
+      if (ideo.config.brush !== false) {
+        ideo.createBrush(ideo.config.brush[0], ideo.config.brush[1]);
       }
 
       if (ideo.config.annotations) {
