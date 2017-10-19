@@ -52,7 +52,7 @@ function createBrush(from, to) {
     from = Math.floor(chrLengthBp / 10);
   }
 
-  if (typeof right === 'undefined') {
+  if (typeof to === 'undefined') {
     to = Math.ceil(from * 2);
   }
 
