@@ -501,12 +501,13 @@ function init() {
     var svgHeight = ideo._layout.getHeight(taxid);
 
     d3.select(ideo.config.container)
-      .append('div')
       .append('svg')
-      .attr('id', '_ideogram')
-      .attr('class', svgClass)
+      .attr('id', '_ideogramWrapper')
       .attr('width', svgWidth)
       .attr('height', svgHeight)
+      .attr('class', svgClass)
+      .append('g')
+      .attr('id', '_ideogram')
       .html(gradients);
 
     finishInit();
