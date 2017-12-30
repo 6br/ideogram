@@ -4,12 +4,13 @@
 
 import * as d3request from 'd3-request';
 import * as d3selection from 'd3-selection';
+import * as d3zoom from 'd3-zoom';
 import {Promise} from 'es6-promise';
 
 import {Ploidy} from './ploidy';
 import {Layout} from './layouts/layout';
 
-var d3 = Object.assign({}, d3request, d3selection);
+var d3 = Object.assign(d3selection, d3request, d3zoom);
 
 /**
  * High-level helper method for Ideogram constructor.
@@ -500,15 +501,23 @@ function init() {
     var svgWidth = ideo._layout.getWidth(taxid);
     var svgHeight = ideo._layout.getHeight(taxid);
 
-    d3.select(ideo.config.container)
+    var svg = d3.select(ideo.config.container)
       .append('svg')
       .attr('id', '_ideogramWrapper')
       .attr('width', svgWidth)
       .attr('height', svgHeight)
-      .attr('class', svgClass)
-      .append('g')
+      .attr('class', svgClass);
+    var zoomLayer = svg.append('g')
       .attr('id', '_ideogram')
       .html(gradients);
+
+    var zoomed = function() {
+      zoomLayer.attr("transform", d3selection.event.transform);
+    };
+
+    svg.call(d3.zoom()
+	             .scaleExtent([1 / 2, 20])
+	             .on("zoom", zoomed));
 
     finishInit();
   }
